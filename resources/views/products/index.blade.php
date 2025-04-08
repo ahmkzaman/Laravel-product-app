@@ -11,6 +11,7 @@
                 <th>Price</th>
                 <th>Category</th>
                 <th>Category ID</th>
+                <th>Actions</th>
                
             </tr>
         </thead>
@@ -30,8 +31,14 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
+                    
+                    {{-- <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form> --}}
                 </td>
+                <td><a href="{{ route('products.show', $product->id) }}" class="btn btn-secondary">View</a></td>
                 
                 
             </tr>

@@ -17,6 +17,13 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+    public function show($id)
+    {
+        $product = Product::with('category')->findOrFail($id);
+        // Return the view with the product data
+        return view('products.show', compact('product'));
+    }
+
     public function edit()
     {
         // Fetch all products from the database
