@@ -36,14 +36,22 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $product->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'category_id' => $request->input('category_id'),
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id'
         ]);
+        $product->update($validatedData);
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+    }
+
 
     public function create()
     {

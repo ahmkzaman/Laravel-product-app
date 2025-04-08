@@ -2,6 +2,12 @@
 @section('content')
 <div class="container">
     <h1 class="mb-4">Product list</h1>
+    @if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+    
+@endif
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
