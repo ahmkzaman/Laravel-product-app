@@ -24,14 +24,27 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
-    public function edit()
+    public function edit($id)
     {
         // Fetch all products from the database
-        $products = Product::with('category')->get();
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
 
         // Return the view with the products data
-        return view('products.edit', compact('products'));
+        return view('products.edit', compact('product', 'categories'));
     }
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $product->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'category_id' => $request->input('category_id'),
+        ]);
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+    }
+
     public function create()
     {
         // Fetch all categories from the database
