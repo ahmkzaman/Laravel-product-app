@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -53,14 +54,6 @@ class ProductController extends Controller
     }
 
 
-    public function create()
-    {
-        // Fetch all categories from the database
-        $categories = Category::all();
-
-        // Return the view with the categories data
-        return view('products.create', compact('categories'));
-    }
 
     public function store(Request $request)
     {
@@ -77,5 +70,14 @@ class ProductController extends Controller
 
         // Redirect to the products index page with a success message
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
+    }
+
+    public function createProduct()
+    {
+
+        $categories = Category::all();
+
+        // Return the view with the categories data
+        return view('createProduct', compact('categories'));
     }
 }
